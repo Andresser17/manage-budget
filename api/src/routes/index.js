@@ -1,18 +1,25 @@
 const { Router } = require("express");
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-const dogRouter = require("./dog");
-const dogByIdRouter = require("./getDogById");
-const tempRouter = require("./temperament");
-const createDogRouter = require("./createDog");
+// import all routes
+const signInRouter = require("./signIn");
+const signUpRouter = require("./signUp");
+// const signOutRouter = require("./signOut");
 
+const operationsRouter = require("./operations");
+const createOperationsRouter = require("./createOperations");
+// const updateOperationsRouter = require("./updateOperations");
+// const deleteOperationsRouter = require("./deleteOperations");
+
+// instance a new router
 const router = Router();
 
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
-router.get("/dogs", dogRouter);
-router.get("/dogs/:breedId", dogByIdRouter);
-router.get("/temperaments", tempRouter);
-router.post("/dogs", createDogRouter);
+// add routes to router
+router.post("/signin", signInRouter);
+router.post("/signup", signUpRouter);
+// router.post("/signout", signOutRouter);
+
+router.get("/operations", operationsRouter);
+router.post("/operations", createOperationsRouter);
+// router.put("/operations", updateOperations);
+// router.delete("/operations", deleteOperations);
 
 module.exports = router;
