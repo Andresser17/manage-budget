@@ -1,0 +1,41 @@
+.container {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Filter */
+
+.filter {
+  background-color: var(--bg);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 1),
+    0 1px 2px -1px rgba(164, 176, 190, 0.5);
+  border-radius: 0.2rem;
+  width: 100%;
+  max-width: 66rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Items */
+
+.items {
+  width: 100%;
+  max-width: 66rem;
+  margin-top: 2rem;
+}
+
+@media only screen and (min-width: 640px) {
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }  
+}
