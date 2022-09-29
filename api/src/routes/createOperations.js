@@ -1,24 +1,34 @@
 const axios = require("axios");
 // models
-const { User } = require("../db");
-// helpers
-// const requiredFields = require("../helpers/requiredFields");
-// const pagination = require("../helpers/pagination");
-// const sortByWeight = require("../helpers/sortByWeight");
-// const filterByTemp = require("../helpers/filterByTemp");
+const { Operation } = require("../db");
 
-const signInRouter = async (req, res) => {
-  const { email, password } = req.body;
+const createOperationsRouter = async (req, res) => {
+  const { concept, amount, date, type, category } = req.body;
 
   try {
     // get data from db
-    const data = await User.findAll({ where: { email } });
+    const op = await Operation.build({
+      concept,
+      amount,
+      date,
+      type,
+      category,
+    });
 
-    res.status(200).json(data);
+    // save operation
+    await op.save();
+
+    res.status(201).json({ message: "Operation created successfuly" });
   } catch (err) {
     console.log(err);
+
+    if (err?.errors) {
+      res.status(500).json({ message: err.errors[0].message });
+      return;
+    }
+
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = signInRouter;
+module.exports = createOperationsRouter;
