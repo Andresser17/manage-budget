@@ -6,6 +6,7 @@ const path = require("path");
 const { DATABASE_URL } = process.env;
 
 const sequelize = new Sequelize(DATABASE_URL, {
+  logging: false,
   dialectOptions: {
     ssl: {
       require: true,
@@ -17,7 +18,7 @@ const sequelize = new Sequelize(DATABASE_URL, {
 const basename = path.basename(__filename);
 const modelDefiners = [];
 
-// Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
+// read archives in Models folder, add to modelDefiner array
 fs.readdirSync(path.join(__dirname, "/models"))
   .filter(
     (file) =>
@@ -27,9 +28,9 @@ fs.readdirSync(path.join(__dirname, "/models"))
     modelDefiners.push(require(path.join(__dirname, "/models", file)));
   });
 
-// Injectamos la conexion (sequelize) a todos los modelos
+// inject sequelize connection to all models
 modelDefiners.forEach((model) => model(sequelize));
-// Capitalizamos los nombres de los modelos ie: product => Product
+// capitalize models names: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
   entry[0][0].toUpperCase() + entry[0].slice(1),
@@ -38,17 +39,17 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Associations
-const { Dog, Temperament } = sequelize.models;
+// const { Dog, Temperament } = sequelize.models;
 
-Dog.belongsToMany(Temperament, { through: "DogTemp", as: "temperament" });
-Temperament.belongsToMany(Dog, { through: "DogTemp", as: "breeds" });
+// Dog.belongsToMany(Temperament, { through: "DogTemp", as: "temperament" });
+// Temperament.belongsToMany(Dog, { through: "DogTemp", as: "breeds" });
 
 const connect = async () => {
   try {
     await sequelize.authenticate();
     console.log("Database connection has been established successfully.");
-    // change this line before production
-    await sequelize.sync({ force: false });
+    // change to false before deploy
+    await sequelize.sync({ force: true });
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
