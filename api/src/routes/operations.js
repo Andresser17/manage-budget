@@ -2,11 +2,15 @@
 const { User } = require("../db");
 
 const operationsRouter = async (req, res) => {
-  const { email } = req.tokenDecoded;
+  const { email } = req.decodedToken;
 
   try {
     // get user operations from db
-    const data = await User.findOne({ where: { email } });
+    const data = await User.findOne({
+      attributes: [],
+      where: { email },
+      include: ["operations"],
+    });
 
     res.status(200).json(data);
   } catch (err) {

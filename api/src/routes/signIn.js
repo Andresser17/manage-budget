@@ -34,6 +34,7 @@ const signInRouter = async (req, res) => {
     const accessToken = jwt.sign(
       {
         email: data.email,
+        userId: data.id,
       },
       ACCESS_TOKEN_SECRET,
       {

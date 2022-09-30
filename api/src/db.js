@@ -39,7 +39,9 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Associations
-// const { Dog, Temperament } = sequelize.models;
+const { User, Operation } = sequelize.models;
+
+User.hasMany(Operation, { as: "operations" });
 
 // Dog.belongsToMany(Temperament, { through: "DogTemp", as: "temperament" });
 // Temperament.belongsToMany(Dog, { through: "DogTemp", as: "breeds" });

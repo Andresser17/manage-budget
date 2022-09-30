@@ -4,6 +4,7 @@ const { Operation } = require("../db");
 
 const createOperationsRouter = async (req, res) => {
   const { concept, amount, date, type, category } = req.body;
+  const { userId } = req.decodedToken;
 
   try {
     // get data from db
@@ -13,6 +14,7 @@ const createOperationsRouter = async (req, res) => {
       date,
       type,
       category,
+      UserId: userId,
     });
 
     // save operation

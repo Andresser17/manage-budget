@@ -37,9 +37,9 @@ module.exports = (sequelize) => {
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
-        len: [3, 20],
+        len: [0, 20],
       },
     },
   });

@@ -20,7 +20,7 @@ router.post("/signup", signUpRouter);
 router.post("/refresh", refreshRouter);
 
 router.get("/operations", [validateToken], operationsRouter);
-router.post("/operations", createOperationsRouter);
+router.post("/operations", [validateToken], createOperationsRouter);
 // router.put("/operations", updateOperations);
 // router.delete("/operations", deleteOperations);
 
