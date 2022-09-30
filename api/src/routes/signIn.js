@@ -1,8 +1,14 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 // models
 const { User } = require("../db");
 // Envs
-const { REFRESH_TOKEN_SECRET, ACCESS_TOKEN_SECRET } = process.env;
+const {
+  REFRESH_TOKEN_SECRET,
+  REFRESH_TOKEN_LIMIT,
+  ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_LIMIT,
+} = process.env;
 
 const signInRouter = async (req, res) => {
   const { email, password } = req.body;
@@ -16,10 +22,10 @@ const signInRouter = async (req, res) => {
       return;
     }
 
-    // hash user provided password
-
     // verify provided password with db password
-    if (password !== data.password) {
+    const isEqual = await bcrypt.compare(password, data.password);
+
+    if (!isEqual) {
       res.status(401).json({ message: "Email or password are invalid" });
       return;
     }
@@ -31,17 +37,17 @@ const signInRouter = async (req, res) => {
       },
       ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "10m",
+        expiresIn: ACCESS_TOKEN_LIMIT,
       }
     );
 
-    // create an refresh token
+    // create a refresh token
     const refreshToken = jwt.sign(
       {
         email: data.email,
       },
       REFRESH_TOKEN_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: REFRESH_TOKEN_LIMIT }
     );
 
     // save refresh token in an http-only cookie
