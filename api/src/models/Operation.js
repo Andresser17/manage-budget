@@ -35,12 +35,5 @@ module.exports = (sequelize) => {
         },
       },
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: [0, 20],
-      },
-    },
   });
 };

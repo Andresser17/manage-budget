@@ -11,6 +11,8 @@ const createOperationsRouter = require("./createOperations");
 // const updateOperationsRouter = require("./updateOperations");
 // const deleteOperationsRouter = require("./deleteOperations");
 
+const categoriesRouter = require("./categories");
+
 // instance a new router
 const router = Router();
 
@@ -23,5 +25,7 @@ router.get("/operations", [validateToken], operationsRouter);
 router.post("/operations", [validateToken], createOperationsRouter);
 // router.put("/operations", updateOperations);
 // router.delete("/operations", deleteOperations);
+
+router.get("/categories", [validateToken], categoriesRouter);
 
 module.exports = router;

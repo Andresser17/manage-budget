@@ -1,14 +1,10 @@
 // models
-const { Operation } = require("../db");
+const { Category } = require("../db");
 
 const operationsRouter = async (req, res) => {
-  const { userId } = req.decodedToken;
-
   try {
     // get user operations from db
-    const data = await Operation.findAll({
-      where: { userId },
-    });
+    const data = await Category.findAll();
 
     res.status(200).json(data);
   } catch (err) {
