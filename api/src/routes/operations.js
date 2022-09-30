@@ -1,11 +1,12 @@
-const axios = require("axios");
 // models
-const { Operation } = require("../db");
+const { User } = require("../db");
 
 const operationsRouter = async (req, res) => {
+  const { email } = req.tokenDecoded;
+
   try {
-    // get data from db
-    const data = await Operation.findAll();
+    // get user operations from db
+    const data = await User.findOne({ where: { email } });
 
     res.status(200).json(data);
   } catch (err) {

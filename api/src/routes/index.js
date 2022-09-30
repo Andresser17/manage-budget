@@ -1,4 +1,6 @@
 const { Router } = require("express");
+// Middleware
+const validateToken = require("../middleware/validateToken");
 // import all routes
 const signInRouter = require("./signIn");
 const signUpRouter = require("./signUp");
@@ -17,7 +19,7 @@ router.post("/signin", signInRouter);
 router.post("/signup", signUpRouter);
 router.post("/refresh", refreshRouter);
 
-router.get("/operations", operationsRouter);
+router.get("/operations", [validateToken], operationsRouter);
 router.post("/operations", createOperationsRouter);
 // router.put("/operations", updateOperations);
 // router.delete("/operations", deleteOperations);
