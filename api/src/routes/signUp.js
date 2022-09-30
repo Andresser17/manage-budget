@@ -1,11 +1,6 @@
 const axios = require("axios");
 // models
 const { User } = require("../db");
-// helpers
-// const requiredFields = require("../helpers/requiredFields");
-// const pagination = require("../helpers/pagination");
-// const sortByWeight = require("../helpers/sortByWeight");
-// const filterByTemp = require("../helpers/filterByTemp");
 
 const signUpRouter = async (req, res) => {
   const { email, password } = req.body;
@@ -17,7 +12,7 @@ const signUpRouter = async (req, res) => {
     // save new user
     await user.save();
 
-    res.status(200).json(user);
+    res.status(201).json(user);
   } catch (err) {
     console.log(err);
 

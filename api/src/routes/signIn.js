@@ -1,23 +1,62 @@
-const axios = require("axios");
+const jwt = require("jsonwebtoken");
 // models
 const { User } = require("../db");
-// helpers
-// const requiredFields = require("../helpers/requiredFields");
-// const pagination = require("../helpers/pagination");
-// const sortByWeight = require("../helpers/sortByWeight");
-// const filterByTemp = require("../helpers/filterByTemp");
+// Envs
+const { REFRESH_TOKEN_SECRET, ACCESS_TOKEN_SECRET } = process.env;
 
 const signInRouter = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // get data from db
-    const data = await User.findAll({ where: { email } });
+    // get user from db
+    const data = await User.findOne({ where: { email } });
 
-    res.status(200).json(data);
+    if (!data) {
+      res.status(401).json({ message: "Email or password are invalid" });
+      return;
+    }
+
+    // hash user provided password
+
+    // verify provided password with db password
+    if (password !== data.password) {
+      res.status(401).json({ message: "Email or password are invalid" });
+      return;
+    }
+
+    // create an access token
+    const accessToken = jwt.sign(
+      {
+        email: data.email,
+      },
+      ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: "10m",
+      }
+    );
+
+    // create an refresh token
+    const refreshToken = jwt.sign(
+      {
+        email: data.email,
+      },
+      REFRESH_TOKEN_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    // save refresh token in an http-only cookie
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json({ accessToken });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: err.message });
+
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

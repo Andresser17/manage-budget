@@ -31,10 +31,10 @@ app.use((_, res, next) => {
 app.use("/", routes);
 
 // Error catching endware.
-app.use((err, _, res) => {
-  const status = err.status || 500;
-  const message = err.message || err;
-  res.status(status).send(message);
-});
+// app.use((err, _, res) => {
+//   const status = err.status || 500;
+//   const message = err.message || err;
+//   res.status(status).send(message);
+// });
 
 module.exports = app;
