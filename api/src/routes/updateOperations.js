@@ -1,4 +1,3 @@
-const axios = require("axios");
 // models
 const { Operation, Category } = require("../db");
 
@@ -10,8 +9,13 @@ const updateOperationsRouter = async (req, res) => {
   try {
     // get op from db
     const op = await Operation.findOne({
-      where: { id },
+      where: { id, userId },
     });
+
+    if (!op) {
+      res.status(404).json({ message: "Operation not found" });
+      return;
+    }
 
     op.set({ concept, amount, date, type });
     await op.save();
@@ -29,12 +33,12 @@ const updateOperationsRouter = async (req, res) => {
       await op.setCategory(categoryToAssociate.id);
     }
 
-    res.status(201).json({ message: "Operation updated successfuly" });
+    res.status(200).json({ message: "Operation updated successfuly" });
   } catch (err) {
     console.log(err);
 
     if (err?.errors) {
-      res.status(500).json({ message: err.errors[0].message });
+      res.status(400).json({ message: err.errors[0].message });
       return;
     }
 

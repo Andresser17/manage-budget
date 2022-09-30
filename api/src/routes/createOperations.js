@@ -1,4 +1,3 @@
-const axios = require("axios");
 // models
 const { Operation, Category } = require("../db");
 
@@ -36,7 +35,7 @@ const createOperationsRouter = async (req, res) => {
     console.log(err);
 
     if (err?.errors) {
-      res.status(500).json({ message: err.errors[0].message });
+      res.status(400).json({ message: err.errors[0].message });
       return;
     }
 

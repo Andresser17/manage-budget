@@ -9,7 +9,7 @@ const refreshRouter = require("./refresh");
 const operationsRouter = require("./operations");
 const createOperationsRouter = require("./createOperations");
 const updateOperationsRouter = require("./updateOperations");
-// const deleteOperationsRouter = require("./deleteOperations");
+const deleteOperationsRouter = require("./deleteOperations");
 
 const categoriesRouter = require("./categories");
 
@@ -24,7 +24,7 @@ router.post("/refresh", refreshRouter);
 router.put("/operations/:id", [validateToken], updateOperationsRouter);
 router.get("/operations", [validateToken], operationsRouter);
 router.post("/operations", [validateToken], createOperationsRouter);
-// router.delete("/operations/:id", [validateToken], deleteOperations);
+router.delete("/operations/:id", [validateToken], deleteOperationsRouter);
 
 router.get("/categories", [validateToken], categoriesRouter);
 
