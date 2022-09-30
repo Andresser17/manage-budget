@@ -2,21 +2,19 @@ const axios = require("axios");
 // models
 const { Operation, Category } = require("../db");
 
-const createOperationsRouter = async (req, res) => {
+const updateOperationsRouter = async (req, res) => {
   const { concept, amount, date, type, category } = req.body;
+  const { id } = req.params;
   const { userId } = req.decodedToken;
 
   try {
-    // build and save new op
-    const op = await Operation.create({
-      concept,
-      amount,
-      date,
-      type,
+    // get op from db
+    const op = await Operation.findOne({
+      where: { id },
     });
 
-    // associate to user
-    await op.setUser(userId);
+    op.set({ concept, amount, date, type });
+    await op.save();
 
     // get category from db, if not exist create it
     if (category) {
@@ -31,7 +29,7 @@ const createOperationsRouter = async (req, res) => {
       await op.setCategory(categoryToAssociate.id);
     }
 
-    res.status(201).json({ message: "Operation created successfuly" });
+    res.status(201).json({ message: "Operation updated successfuly" });
   } catch (err) {
     console.log(err);
 
@@ -44,4 +42,4 @@ const createOperationsRouter = async (req, res) => {
   }
 };
 
-module.exports = createOperationsRouter;
+module.exports = updateOperationsRouter;
