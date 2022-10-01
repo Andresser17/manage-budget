@@ -15,7 +15,7 @@ const operationsRouter = async (req, res) => {
       },
       ...(query.limit && { limit: query.limit }),
       ...(query.page && { offset: query.page * query.limit - query.limit }),
-      order: [["id", query.sort.toUpperCase()]],
+      order: [["id", query.sort ? query.sort.toUpperCase() : "ASC"]],
     });
 
     res.status(200).json(data);

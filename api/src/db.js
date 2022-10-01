@@ -52,7 +52,7 @@ const connect = async () => {
     await sequelize.authenticate();
     console.log("Database connection has been established successfully.");
     // change to false before deploy
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);

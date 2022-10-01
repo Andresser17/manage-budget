@@ -15,7 +15,12 @@ const signUpRouter = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // create a new user
-    const user = await User.build({ email, password: hashedPassword });
+    const user = await User.build({
+      email,
+      password: hashedPassword,
+      balance: "0",
+      currency: "USD",
+    });
 
     // save new user
     await user.save();

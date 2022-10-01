@@ -18,5 +18,13 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: { notEmpty: true },
     },
+    balance: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    currency: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 };
