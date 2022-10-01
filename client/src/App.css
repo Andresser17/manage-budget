@@ -1,5 +1,7 @@
 .App {
-  color: var(--text);
+  min-height: 100vh;
+  background-color: rgba(var(--bg), 1);
+  color: rgba(var(--text), 1);
   text-align: center;
 }
 

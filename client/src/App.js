@@ -3,11 +3,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Styles
 import "./App.css";
-// Components
-import Topbar from "./components/Topbar";
+// Sections
+import Topbar from "sections/Topbar";
 // Routes
-import DogDetails from "./routes/DogDetails";
-import Homepage from "./routes/Homepage";
+import SignIn from "./routes/SignIn";
+import Home from "./routes/Home";
 
 function App() {
   const contextClass = {
@@ -23,8 +23,8 @@ function App() {
     <div className="App">
       <Topbar />
       <Routes>
-        <Route path="/" index element={<Homepage />} />
-        <Route path="details/:breedId" element={<DogDetails />} />
+        <Route path="/" index element={<Home />} />
+        <Route path="signin" element={<SignIn />} />
       </Routes>
       <ToastContainer
         toastClassName={({ type }) =>

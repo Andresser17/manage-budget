@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  padding: 0 1rem;
+  padding-top: 8rem;
+}
+
+.card {
+  background-color: rgba(var(--card, 1));
+  width: 100%;
+  max-width: 24rem;
+  height: 12rem;
+  padding: 1rem 2rem;
+  border-bottom: 0.2rem solid rgba(var(--border, 1));
+  box-shadow: var(--shadow-lg);
+}
+
+.welcome-message {
+  width: 100%;
+  text-align: start;
+  font-size: 2rem;
+  display: block;
+}
+
+.subtitle {
+  width: 100%;
+  text-align: start;
+  font-size: 1rem;
+  display: block;
+}
+
+.balance {
+  width: 100%;
+  text-align: start;
+  font-size: 2.5rem;
+  margin-top: 2.3rem;
+  display: block;
+}
+
+.operations-cont {
+  margin-top: 3rem;
+}

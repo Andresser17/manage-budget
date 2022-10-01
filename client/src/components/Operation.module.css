@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+  max-width: 24rem;
+  padding: 1rem 2rem;
+  border-bottom: 0.2rem solid rgba(var(--border, 1));
+  box-shadow: var(--shadow-lg);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.topbar span {
+  font-size: 1.4rem;
+  display: block;
+}
+
+.concept-cont {
+  margin: 1rem 0;
+}
+
+.concept-cont span {
+  text-align: start;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.concept {
+  height: 8rem;
+  padding: 0.5rem 1rem;
+  border: 0.08rem solid rgba(var(--border, 1));
+}
+
+.concept p {
+  text-align: start;
+  font-size: 0.8rem;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.category { 
+  font-size: 0.9rem;
+}

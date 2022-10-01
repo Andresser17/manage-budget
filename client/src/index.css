@@ -38,9 +38,15 @@ body {
 }
 
 :root {
-  --bg: rgba(255, 71, 87, 1);
-  --text: rgba(47, 53, 66, 1);
+  --primary: 208, 184, 168;
+  --bg: 58, 43, 64;
+  --card: 125, 110, 131;
+  --text: 208, 184, 168;
+  --border: 208, 184, 168;
+  --notification: 255, 69, 58;
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 1px 3px 0 rgba(0, 0, 0, 1),
+    0 1px 2px -1px rgba(164, 176, 190, 0.5);
 }
 
 .primary {
