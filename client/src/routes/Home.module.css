@@ -1,11 +1,8 @@
 .container {
   width: 100%;
-  padding: 0 1rem;
-  padding-top: 8rem;
 }
 
 .card {
-  background-color: rgba(var(--card, 1));
   width: 100%;
   max-width: 24rem;
   height: 12rem;

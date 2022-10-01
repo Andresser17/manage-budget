@@ -7,6 +7,7 @@ import "./App.css";
 import Topbar from "sections/Topbar";
 // Routes
 import SignIn from "./routes/SignIn";
+import SignUp from "./routes/SignUp";
 import Home from "./routes/Home";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" index element={<Home />} />
         <Route path="signin" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
       </Routes>
       <ToastContainer
         toastClassName={({ type }) =>

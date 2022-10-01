@@ -1,0 +1,30 @@
+.container {
+  padding: 2rem;
+  border-bottom: 0.2rem solid rgba(var(--border), 1);
+  box-shadow: var(--shadow-lg);
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: start;
+  margin-bottom: 3rem;
+}
+
+.input-cont {
+  margin-top: 1rem;
+}
+
+.submit-button {
+  background-color: rgba(var(--bg), 1);
+  color: rgba(var(--text), 1);
+  border: none;
+  border-radius: 0.15rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  padding: 1rem 4rem;
+}
+
+.submit-button:hover {
+  opacity: 0.8;
+}

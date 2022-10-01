@@ -50,13 +50,21 @@ body {
 }
 
 .primary {
-  --bg: rgba(255, 71, 87, 1);
-  --text: rgba(47, 53, 66, 1);
+  --primary: 208, 184, 168;
+  --bg: 58, 43, 64;
+  --card: 125, 110, 131;
+  --text: 208, 184, 168;
+  --border: 208, 184, 168;
+  --notification: 255, 69, 58;
 }
 
 .secondary {
-  --bg: rgba(87, 96, 111, 1);
-  --text: rgba(241, 242, 246, 1);
+  --primary: 58, 43, 64;
+  --bg: 208, 184, 168;
+  --card: 125, 110, 131;
+  --text: 58, 43, 64;
+  --border: 208, 184, 168;
+  --notification: 255, 69, 58;
 }
 
 .tertiary {

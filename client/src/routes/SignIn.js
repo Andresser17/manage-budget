@@ -8,6 +8,7 @@ function SignIn() {
   const { handleSubmit, control } = useForm({
     defaultValues: {
       email: "",
+      password: "",
     },
   });
   const onSubmit = (data) => console.log(data);
@@ -26,7 +27,18 @@ function SignIn() {
             rules={{ required: true }}
           />
         </div>
-        <button className={styles["submit-button"]}>Sign In</button>
+        <div className={styles["input-cont"]}>
+          <Input
+            control={control}
+            name="password"
+            placeholder="Password"
+            label="Password"
+            rules={{ required: true }}
+          />
+        </div>
+        <button className={`${styles["submit-button"]} secondary`}>
+          Sign In
+        </button>
       </form>
     </div>
   );
