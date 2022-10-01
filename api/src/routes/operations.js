@@ -2,12 +2,20 @@
 const { Operation } = require("../db");
 
 const operationsRouter = async (req, res) => {
+  const query = req.query;
   const { userId } = req.decodedToken;
 
   try {
     // get user operations from db
     const data = await Operation.findAll({
-      where: { userId },
+      where: {
+        UserId: userId,
+        ...(query.type && { type: query.type }),
+        ...(query.category && { CategoryId: query.category }),
+      },
+      ...(query.limit && { limit: query.limit }),
+      ...(query.page && { offset: query.page * query.limit - query.limit }),
+      order: [["id", query.sort.toUpperCase()]],
     });
 
     res.status(200).json(data);

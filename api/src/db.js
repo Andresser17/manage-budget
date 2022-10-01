@@ -41,11 +41,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Associations
 const { User, Operation, Category } = sequelize.models;
 
-User.hasMany(Operation, { as: "operations" });
-Operation.belongsTo(User, { as: "user" });
+User.hasMany(Operation);
+Operation.belongsTo(User);
 
-Category.hasMany(Operation, { as: "operations" });
-Operation.belongsTo(Category, { as: "category" });
+Category.hasMany(Operation);
+Operation.belongsTo(Category);
 
 const connect = async () => {
   try {
