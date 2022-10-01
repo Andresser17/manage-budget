@@ -1,17 +1,33 @@
 import { useForm } from "react-hook-form";
-// components
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+// Components
 import Input from "components/Input";
+// Services
+import authService from "services/auth.service";
 // Styles
 import styles from "./SignIn.module.css";
 
 function SignUp() {
+  const navigate = useNavigate();
   const { handleSubmit, control } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    const response = await authService.signUp(data.email, data.password);
+
+    // if response is successful, redirect to /signin
+    if (response.status === 201) {
+      toast.success(response.data.message);
+      return navigate("/signin");
+    }
+
+    toast.error(response.response.data.message);
+  };
 
   return (
     <div className={styles["container"]}>
@@ -33,6 +49,7 @@ function SignUp() {
             name="password"
             placeholder="Password"
             label="Password"
+            type="password"
             rules={{ required: true }}
           />
         </div>
