@@ -1,5 +1,7 @@
 // models
 const { Operation } = require("../db");
+// helpers
+const updateUserBalance = require("../helpers/updateUserBalance");
 
 const deleteOperationsRouter = async (req, res) => {
   const { id } = req.params;
@@ -8,13 +10,20 @@ const deleteOperationsRouter = async (req, res) => {
   try {
     // get op from db
     const op = await Operation.findOne({
-      where: { id, userId },
+      where: { id, UserId: userId },
     });
 
     if (!op) {
       res.status(404).json({ message: "Operation not found" });
       return;
     }
+
+    // undo previous operation balance
+    await updateUserBalance(
+      userId,
+      op.type === "outcome" ? "income" : "outcome",
+      op.amount
+    );
 
     await op.destroy();
 

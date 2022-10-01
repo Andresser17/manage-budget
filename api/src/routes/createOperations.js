@@ -1,5 +1,7 @@
 // models
 const { Operation, Category } = require("../db");
+// helpers
+const updateUserBalance = require("../helpers/updateUserBalance");
 
 const createOperationsRouter = async (req, res) => {
   const { concept, amount, date, type, category } = req.body;
@@ -29,6 +31,9 @@ const createOperationsRouter = async (req, res) => {
 
       await op.setCategory(categoryToAssociate.id);
     }
+
+    // update user balance
+    await updateUserBalance(userId, type, amount);
 
     res.status(201).json({ message: "Operation created successfuly" });
   } catch (err) {

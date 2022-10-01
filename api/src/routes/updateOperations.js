@@ -1,5 +1,7 @@
 // models
 const { Operation, Category } = require("../db");
+// helpers
+const updateUserBalance = require("../helpers/updateUserBalance");
 
 const updateOperationsRouter = async (req, res) => {
   const { concept, amount, date, type, category } = req.body;
@@ -9,7 +11,7 @@ const updateOperationsRouter = async (req, res) => {
   try {
     // get op from db
     const op = await Operation.findOne({
-      where: { id, userId },
+      where: { id, UserId: userId },
     });
 
     if (!op) {
@@ -17,6 +19,14 @@ const updateOperationsRouter = async (req, res) => {
       return;
     }
 
+    // undo previous operation balance
+    await updateUserBalance(
+      userId,
+      op.type === "outcome" ? "income" : "outcome",
+      op.amount
+    );
+
+    // update operation
     op.set({ concept, amount, date, type });
     await op.save();
 
@@ -32,6 +42,9 @@ const updateOperationsRouter = async (req, res) => {
 
       await op.setCategory(categoryToAssociate.id);
     }
+
+    // update user balance
+    await updateUserBalance(userId, type, amount);
 
     res.status(200).json({ message: "Operation updated successfuly" });
   } catch (err) {
