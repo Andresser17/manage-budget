@@ -5,32 +5,34 @@
 
 .title {
   text-align: start;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.07rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   display: inline-block;
 }
 
 .input {
-  background-color: rgba(0, 0, 0, 0);
-  color: var(--text);
+  background-color: transparent;
+  color: rgba(var(--text, 1));
   border: none;
-  border-bottom: 0.1rem solid var(--bg);
+  border: 0.08rem solid rgba(var(--border, 1));
+  padding: 0.8rem 0.5rem;
   font-size: 1.1rem;
-  padding: 0.3rem 0.2rem;
-  outline: none;
+}
+
+.input:focus {
+  outline: 0.08rem solid rgba(var(--border, 1));
 }
 
 .input::placeholder {
-  color: rgba(18, 18, 18, 0.25);
+  color: rgba(var(--text), 0.5);
 }
 
 /* description */
 
 .description {
   height: 0.8rem;
-  color: var(--text);
+  color: red;
   text-align: start;
   display: inline-block;
   font-size: 0.8rem;
