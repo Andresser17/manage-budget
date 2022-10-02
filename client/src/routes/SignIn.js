@@ -1,14 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 // Components
 import Input from "components/Input";
 // Services
 import authService from "services/auth.service";
+// Actions
+import { signIn } from "store/authSlice";
 // Styles
 import styles from "./SignIn.module.css";
 
 function SignIn() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { handleSubmit, control } = useForm({
     defaultValues: {
@@ -22,7 +26,8 @@ function SignIn() {
 
     // if response is successful, redirect to home
     if (response.status === 200) {
-      toast.success(response.data.message);
+      toast.success("Logged successfuly");
+      dispatch(signIn());
       return navigate("/");
     }
 

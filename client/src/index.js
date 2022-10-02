@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import { store } from "store";
+import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 
 const container = document.getElementById("root");
@@ -10,9 +12,11 @@ const root = createRoot(container); // createRoot(container!) if you use TypeScr
 // root.render(<App tab="home" />);
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/">
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter basename="/">
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
