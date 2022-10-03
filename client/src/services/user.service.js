@@ -1,61 +1,16 @@
-import axios from "axios";
-import * as SecureStore from "expo-secure-store";
-// Envs
-import Constants from "expo-constants";
-const { API_URL } = Constants.manifest.extra;
+import api from "./api";
 
-async function getOrders() {
-  try {
-    // get token from SecureStore
-    const userToken = await SecureStore.getItemAsync("userToken");
-    // set token in request header
-    axios.defaults.headers.common["Authorization"] = `token ${userToken}`;
-    const response = await axios.get(`${API_URL}/os/`);
-
-    return response;
-  } catch (e) {
-    console.log(e.message);
-    return e;
-  }
-}
-
-async function getOrderDetails(orderId) {
-  try {
-    // get token from SecureStore
-    const userToken = await SecureStore.getItemAsync("userToken");
-    // set token in request header
-    axios.defaults.headers.common["Authorization"] = `token ${userToken}`;
-    const response = await axios.get(`${API_URL}/os/${orderId}/`);
-
-    return response;
-  } catch (e) {
-    console.log(e.message);
-    return e;
-  }
-}
-
-async function registerTech(
-  name,
-  last_name,
-  birthday,
-  status,
-  id_type,
-  id_number
+async function getOperations(
+  page = 1,
+  limit = 10,
+  type = "",
+  category = "",
+  sort = ""
 ) {
   try {
-    // get token from SecureStore
-    const userToken = await SecureStore.getItemAsync("userToken");
-    // set token in request header
-    axios.defaults.headers.common["Authorization"] = `token ${userToken}`;
-    const response = await axios.post(`${API_URL}/technician/`, {
-      name,
-      last_name,
-      birthday,
-      status,
-      id_type,
-      id_number,
-      operator: 1,
-    });
+    const response = await api.get(
+      `/operations?page=${page}&limit=${limit}&type=${type}&category=${category}&sort=${sort}`
+    );
 
     return response;
   } catch (e) {
@@ -64,19 +19,9 @@ async function registerTech(
   }
 }
 
-async function techAbsence(schedule_day, status, start_time, end_time) {
+async function getBalance() {
   try {
-    // get token from SecureStore
-    const userToken = await SecureStore.getItemAsync("userToken");
-    // set token in request header
-    axios.defaults.headers.common["Authorization"] = `token ${userToken}`;
-    const response = await axios.post(`${API_URL}/absence/`, {
-      schedule_day: Number(schedule_day),
-      status: Number(status),
-      start_time,
-      end_time,
-      operator: 1,
-    });
+    const response = await api.get("/balance");
 
     return response;
   } catch (e) {
@@ -86,10 +31,8 @@ async function techAbsence(schedule_day, status, start_time, end_time) {
 }
 
 const user = {
-  getOrders,
-  getOrderDetails,
-  registerTech,
-  techAbsence,
+  getOperations,
+  getBalance,
 };
 
 export default user;

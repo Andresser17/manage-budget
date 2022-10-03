@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // Services
 import authService from "services/auth.service";
@@ -9,14 +10,15 @@ import { signOut } from "store/authSlice";
 import styles from "./Topbar.module.css";
 
 function Menu({ active }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
   const handleSignout = async () => {
     await authService.signOut();
     dispatch(signOut());
-
     toast.success("Sign out successfuly");
+    navigate("/");
   };
 
   return (

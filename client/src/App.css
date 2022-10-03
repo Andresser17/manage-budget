@@ -2,6 +2,7 @@
   min-height: 100vh;
   background-color: rgba(var(--bg), 1);
   padding: 0 1rem;
+  padding-bottom: 2rem;
   color: rgba(var(--text), 1);
   text-align: center;
 }

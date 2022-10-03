@@ -2,8 +2,13 @@
   width: 100%;
   max-width: 24rem;
   padding: 1rem 2rem;
+  margin-bottom: 2rem;
   border-bottom: 0.2rem solid rgba(var(--border, 1));
   box-shadow: var(--shadow-lg);
+}
+
+.container:last-child {
+  margin-bottom: 0;
 }
 
 .topbar {
@@ -42,6 +47,6 @@
   justify-content: space-between;
 }
 
-.category { 
+.category {
   font-size: 0.9rem;
 }
