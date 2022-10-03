@@ -1,17 +1,30 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+// Services
+import authService from "services/auth.service";
+// Actions
+import { signOut } from "store/authSlice";
 // Styles
 import styles from "./Topbar.module.css";
 
 function Menu({ active }) {
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+
+  const handleSignout = async () => {
+    await authService.signOut();
+    dispatch(signOut());
+
+    toast.success("Sign out successfuly");
+  };
 
   return (
     <nav className={`${styles["menu"]}`}>
       {auth.isLogged ? (
-        <Link className={styles["link-button"]} to="/signin">
+        <span onClick={handleSignout} className={styles["link-button"]}>
           Sign Out
-        </Link>
+        </span>
       ) : (
         <>
           <Link className={styles["link-button"]} to="/signin">
