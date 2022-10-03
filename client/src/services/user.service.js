@@ -19,9 +19,9 @@ async function getOperations(
   }
 }
 
-async function getBalance() {
+async function getUserData() {
   try {
-    const response = await api.get("/balance");
+    const response = await api.get("/userdata");
 
     return response;
   } catch (e) {
@@ -32,7 +32,7 @@ async function getBalance() {
 
 const user = {
   getOperations,
-  getBalance,
+  getUserData,
 };
 
 export default user;
