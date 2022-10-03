@@ -21,7 +21,7 @@ function Menu({ active }) {
 
   return (
     <nav className={`${styles["menu"]}`}>
-      {auth.isLogged ? (
+      {auth.isSignedIn ? (
         <span onClick={handleSignout} className={styles["link-button"]}>
           Sign Out
         </span>
