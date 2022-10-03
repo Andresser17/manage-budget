@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import validate from "helpers/validation";
 // Components
 import Input from "components/Input";
 // Services
@@ -40,7 +41,13 @@ function SignUp() {
             name="email"
             placeholder="example@domain.com"
             label="Email"
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              pattern: {
+                value: validate.email,
+                message: "Provide a valid email",
+              },
+            }}
           />
         </div>
         <div className={styles["input-cont"]}>
@@ -50,7 +57,11 @@ function SignUp() {
             placeholder="Password"
             label="Password"
             type="password"
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              minLength: { value: 8, message: "8 characters minimum" },
+              maxLength: { value: 25, message: "25 characters maximum" },
+            }}
           />
         </div>
         <button className={`${styles["submit-button"]} secondary`}>

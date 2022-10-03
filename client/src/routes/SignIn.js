@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import validate from "helpers/validation";
 // Components
 import Input from "components/Input";
 // Services
@@ -44,7 +45,13 @@ function SignIn() {
             name="email"
             placeholder="example@domain.com"
             label="Email"
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              pattern: {
+                value: validate.email,
+                message: "Provide a valid email",
+              },
+            }}
           />
         </div>
         <div className={styles["input-cont"]}>
