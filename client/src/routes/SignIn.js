@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 // Components
@@ -13,7 +12,6 @@ import styles from "./SignIn.module.css";
 
 function SignIn() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { handleSubmit, control } = useForm({
     defaultValues: {
       email: "",
@@ -28,7 +26,8 @@ function SignIn() {
     if (response.status === 200) {
       toast.success("Logged successfuly");
       dispatch(signIn());
-      return navigate("/");
+      window.location.replace("/");
+      return;
     }
 
     toast.error(response.response.data.message);
