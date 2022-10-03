@@ -22,9 +22,14 @@ function Menu({ active }) {
   return (
     <nav className={`${styles["menu"]}`}>
       {auth.isSignedIn ? (
-        <span onClick={handleSignout} className={styles["link-button"]}>
-          Sign Out
-        </span>
+        <>
+          <Link className={styles["link-button"]} to="/operations">
+            Operations
+          </Link>
+          <span onClick={handleSignout} className={styles["link"]}>
+            Sign Out
+          </span>
+        </>
       ) : (
         <>
           <Link className={styles["link-button"]} to="/signin">
