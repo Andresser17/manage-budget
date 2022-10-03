@@ -6,7 +6,7 @@ const signInRouter = require("./signIn");
 const signUpRouter = require("./signUp");
 const refreshRouter = require("./refresh");
 
-const balanceRouter = require("./balance");
+const userDataRouter = require("./userData");
 
 const operationsRouter = require("./operations");
 const createOperationsRouter = require("./createOperations");
@@ -23,7 +23,7 @@ router.post("/signin", signInRouter);
 router.post("/signup", signUpRouter);
 router.post("/refresh", refreshRouter);
 
-router.get("/balance", [validateToken], balanceRouter);
+router.get("/userdata", [validateToken], userDataRouter);
 
 router.put("/operations/:id", [validateToken], updateOperationsRouter);
 router.get("/operations", [validateToken], operationsRouter);

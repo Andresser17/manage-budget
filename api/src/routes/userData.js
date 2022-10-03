@@ -1,7 +1,7 @@
 // models
 const { User } = require("../db");
 
-const balanceRouter = async (req, res) => {
+const userDataRouter = async (req, res) => {
   const { userId } = req.decodedToken;
 
   try {
@@ -10,7 +10,7 @@ const balanceRouter = async (req, res) => {
       where: {
         id: userId,
       },
-      attributes: ["balance", "currency"],
+      attributes: ["email", "balance", "currency"],
     });
 
     res.status(200).json(data);
@@ -26,4 +26,4 @@ const balanceRouter = async (req, res) => {
   }
 };
 
-module.exports = balanceRouter;
+module.exports = userDataRouter;
