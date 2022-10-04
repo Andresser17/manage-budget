@@ -12,9 +12,12 @@ const validateToken = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log(err);
-
     if (err?.name === "JsonWebTokenError") {
+      res.status(403).json({ message: "Invalid token" });
+      return;
+    }
+
+    if (err?.name === "TokenExpiredError") {
       res.status(403).json({ message: "Invalid token" });
       return;
     }
