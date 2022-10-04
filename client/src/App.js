@@ -11,6 +11,7 @@ import Topbar from "sections/Topbar";
 import SignIn from "routes/SignIn";
 import SignUp from "routes/SignUp";
 import Home from "routes/Home";
+import Operations from "routes/Operations";
 // Actions
 import { signIn as signInAction } from "store/authSlice";
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/operations" element={<Operations />} />
       </Routes>
       <ToastContainer
         toastClassName={({ type }) =>

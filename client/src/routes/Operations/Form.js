@@ -1,62 +1,123 @@
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 // Components
-import Input from "../components/Input";
+import Input from "components/Input";
+import Date from "components/Date";
+import Select from "components/Select";
 // Services
-import authService from "services/auth.service";
-// Actions
-// import {} from "store/authSlice"
+import userService from "services/user.service";
 // Styles
 import styles from "./Form.module.css";
 
 function Form(props) {
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      amount: "",
+      type: "",
+      category: "",
+      concept: "",
     },
   });
-  const dispatch = useDispatch();
+  const types = [
+    { label: "Income", value: "income" },
+    { label: "Outcome", value: "outcome" },
+  ];
+  const [date, setDate] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const onSubmit = async (data) => {
-    const response = await authService.signIn(data.email, data.password);
+    const response = await userService.registerOperation(
+      data.amount,
+      date,
+      data.type.toLowerCase(),
+      data.category,
+      data.concept
+    );
 
     // if response is successful, redirect to home
-    if (response.status === 200) {
-      toast.success("Logged successfuly");
-      // dispatch(signIn());
+    if (response.status === 201) {
+      toast.success(response.data.message);
       return;
     }
 
     toast.error(response.response.data.message);
   };
 
+  // get categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await userService.getCategories();
+
+      if (response.status === 200) {
+        setCategories(response.data);
+        return;
+      }
+
+      setCategories(null);
+      toast.error(response.response.data.message);
+    };
+    if (categories && categories.length === 0) fetchCategories();
+  }, [categories]);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
-      <div className={styles["input-cont"]}>
-        <Input
-          control={control}
-          name="email"
-          placeholder="example@domain.com"
-          label="Email"
-          rules={{ required: true }}
-        />
-      </div>
-      <div className={styles["input-cont"]}>
-        <Input
-          control={control}
-          name="password"
-          placeholder="Password"
-          label="Password"
-          type="password"
-          rules={{ required: true }}
-        />
-      </div>
-      <button className={`${styles["submit-button"]} secondary`}>
-        Sign In
-      </button>
-    </form>
+    <div className={styles["container"]}>
+      <h2 className={styles["title"]}>Register Operation</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
+        <div className={styles["input-cont"]}>
+          <Input
+            control={control}
+            name="amount"
+            placeholder="$250.00"
+            label="Amount"
+            rules={{ required: true }}
+          />
+        </div>
+        <div className={styles["input-cont"]}>
+          <Date
+            name="date"
+            placeholder="10-27-2022"
+            label="Date"
+            value={date}
+            required
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
+        <div className={styles["input-cont"]}>
+          <Select
+            label="Type"
+            options={types}
+            name="type"
+            placeholder="Select a type"
+            control={control}
+            setValue={setValue}
+            rules={{ required: true }}
+          />
+        </div>
+        <div className={styles["input-cont"]}>
+          <Select
+            label="Category"
+            options={categories}
+            name="category"
+            placeholder="Select a category or create one"
+            control={control}
+            setValue={setValue}
+          />
+        </div>
+        <div className={styles["input-cont"]}>
+          <Input
+            control={control}
+            name="concept"
+            placeholder="Custom concept..."
+            label="Concept"
+            rules={{ required: true }}
+          />
+        </div>
+        <button className={`${styles["submit-button"]} secondary`}>
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

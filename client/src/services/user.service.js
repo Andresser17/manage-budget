@@ -19,6 +19,23 @@ async function getOperations(
   }
 }
 
+async function registerOperation(amount, date, type, category, concept) {
+  try {
+    const response = await api.post(`/operations`, {
+      amount,
+      date,
+      type,
+      category,
+      concept,
+    });
+
+    return response;
+  } catch (e) {
+    console.log(e.message);
+    return e;
+  }
+}
+
 async function getUserData() {
   try {
     const response = await api.get("/userdata");
@@ -30,9 +47,22 @@ async function getUserData() {
   }
 }
 
+async function getCategories() {
+  try {
+    const response = await api.get("/categories");
+
+    return response;
+  } catch (e) {
+    console.log(e.message);
+    return e;
+  }
+}
+
 const user = {
   getOperations,
+  registerOperation,
   getUserData,
+  getCategories,
 };
 
 export default user;
