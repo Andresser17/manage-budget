@@ -1,0 +1,45 @@
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  text-align: start;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+.select {
+  background-color: transparent;
+  color: rgba(var(--text, 1));
+  border: none;
+  border: 0.08rem solid rgba(var(--border, 1));
+  padding: 0.1rem 0.5rem;
+  font-size: 1.1rem;
+}
+
+.select:focus {
+  outline: 0.08rem solid rgba(var(--border, 1));
+}
+
+.option {
+  background-color: rgba(var(--bg), 1);
+  color: rgba(var(--text, 1));
+  padding: 0.1rem 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* description */
+
+.description {
+  height: 0.8rem;
+  color: red;
+  text-align: start;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
