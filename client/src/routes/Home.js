@@ -34,7 +34,7 @@ function Home() {
         </span>
         <span className={styles["subtitle"]}>This is your actual balance</span>
 
-        <span className={styles["balance"]}>$ {user?.balance ?? 0}</span>
+        <span className={styles["balance"]}>${user?.balance ?? 0}</span>
       </div>
       <div className={styles["operations-cont"]}>
         {Object.keys(operations).length > 0 &&
