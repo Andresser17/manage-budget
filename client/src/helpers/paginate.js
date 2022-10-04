@@ -12,9 +12,10 @@ function paginate(maxPage, currentPage = 1, pageSize = 10, pagesToShow = 10) {
     startPage = 1;
     endPage = maxPage;
   } else {
-    // max pages more than max so calculate start and end pages
+    // maxPage is greather than pagesToShow so calculate start and end pages
     let pagesToShowBeforeCurrentPage = Math.floor(pagesToShow / 2);
     let pagesToShowAfterCurrentPage = Math.ceil(pagesToShow / 2) - 1;
+
     if (currentPage <= pagesToShowBeforeCurrentPage) {
       // current page near the start
       startPage = 1;

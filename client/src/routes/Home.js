@@ -9,13 +9,13 @@ import styles from "./Home.module.css";
 
 function Home() {
   const [user, setUser] = useState(null);
-  const [operations, setOperations] = useState([]);
+  const [operations, setOperations] = useState({});
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchData = async () => {
       const user = await userService.getUserData();
-      const operations = await userService.getOperations();
+      const operations = await userService.getOperations({});
 
       if (user.status === 200 && operations.status === 200) {
         setUser(user.data);
@@ -37,8 +37,8 @@ function Home() {
         <span className={styles["balance"]}>$ {user?.balance ?? 0}</span>
       </div>
       <div className={styles["operations-cont"]}>
-        {operations.length > 0 &&
-          operations.map((op) => <Operation key={op.id} data={op} />)}
+        {Object.keys(operations).length > 0 &&
+          operations.data.map((op) => <Operation key={op.id} data={op} />)}
       </div>
     </div>
   );

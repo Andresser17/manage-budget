@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 // Components
 import Operation from "components/Operation";
 import FilterBy from "components/FilterBy";
+import Pagination from "components/Pagination";
 // Sections
 import Form from "./Form";
 // Services
@@ -11,7 +12,8 @@ import userService from "services/user.service";
 import styles from "./index.module.css";
 
 function Operations() {
-  const [operations, setOperations] = useState([]);
+  const [operations, setOperations] = useState({});
+  const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
     category: "",
     type: "",
@@ -35,6 +37,7 @@ function Operations() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await userService.getOperations({
+        page,
         category: filters.category,
         type: filters.type,
         sort: filters.sort,
@@ -46,7 +49,7 @@ function Operations() {
     };
 
     if (auth.isSignedIn) fetchData();
-  }, [auth, filters]);
+  }, [auth, filters, page]);
 
   // get categories
   useEffect(() => {
@@ -106,8 +109,18 @@ function Operations() {
         </div>
       </div>
       <div className={styles["operations-cont"]}>
-        {operations.length > 0 &&
-          operations.map((op) => <Operation key={op.id} data={op} />)}
+        {Object.keys(operations).length > 0 &&
+          operations.data.map((op) => <Operation key={op.id} data={op} />)}
+      </div>
+      <div className={styles["pag-cont"]}>
+        {Object.keys(operations).length > 0 && (
+          <Pagination
+            maxPage={operations.count}
+            limit={10}
+            selected={page}
+            setSelected={setPage}
+          />
+        )}
       </div>
     </div>
   );

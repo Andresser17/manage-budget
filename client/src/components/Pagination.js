@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 // Icons
-import { ReactComponent as ArrowNext } from "../icons/arrow-next.svg";
-import { ReactComponent as ArrowPrevious } from "../icons/arrow-previous.svg";
+import { ReactComponent as ArrowNext } from "icons/arrow-next.svg";
+import { ReactComponent as ArrowPrevious } from "icons/arrow-previous.svg";
 // Helpers
-import paginate from "../helpers/paginate";
+import paginate from "helpers/paginate";
 // Styles
 import styles from "./Pagination.module.css";
 
-function Button({ value, text, selected, onSelected, children }) {
+function Button({ value, text, selected, setSelected, children }) {
   return (
     <li
-      onClick={() => onSelected(Number(value))}
+      onClick={() => setSelected(Number(value))}
       className={`${children ? styles["arrow-button"] : styles["button"]} ${
-        String(selected) === text ? "primary" : ""
+        String(selected) === text ? styles["selected-button"] : ""
       }`}
     >
       {children ? children : value}
@@ -20,26 +20,21 @@ function Button({ value, text, selected, onSelected, children }) {
   );
 }
 
-function Pagination({ maxPage = 1, next, previous, onSelected, selected }) {
+function Pagination({ maxPage = 1, limit = 10, setSelected, selected = 1 }) {
   const [buttons, setButtons] = useState([]);
   const [pagesToShow, setPagesToShow] = useState(4);
   const [resolution, setResolution] = useState(0);
 
   // map maxPage prop to an array of objects
   useEffect(() => {
-    const { pages } = paginate(
-      maxPage,
-      selected,
-      next?.limit ? next?.limit : 10,
-      pagesToShow
-    );
+    const { pages } = paginate(maxPage, selected, limit, pagesToShow);
 
     setButtons([
       <Button
         key="previous"
         selected={selected}
-        onSelected={onSelected}
-        value={previous?.page}
+        setSelected={setSelected}
+        value={1}
         text="previous"
       >
         <ArrowPrevious className={styles["arrow"]} />
@@ -48,7 +43,7 @@ function Pagination({ maxPage = 1, next, previous, onSelected, selected }) {
         <Button
           key={p}
           selected={selected}
-          onSelected={onSelected}
+          setSelected={setSelected}
           value={p}
           text={String(p)}
         />
@@ -56,14 +51,14 @@ function Pagination({ maxPage = 1, next, previous, onSelected, selected }) {
       <Button
         key="next"
         selected={selected}
-        onSelected={onSelected}
-        value={next?.page}
+        setSelected={setSelected}
+        value={1}
         text="next"
       >
         <ArrowNext className={styles["arrow"]} />
       </Button>,
     ]);
-  }, [pagesToShow, maxPage, next, previous, selected, onSelected]);
+  }, [pagesToShow, maxPage, limit, selected, setSelected]);
 
   // resize pagination when resolution get bigger
   useEffect(() => {
@@ -97,7 +92,7 @@ function Pagination({ maxPage = 1, next, previous, onSelected, selected }) {
     };
   }, [resolution]);
 
-  return <ul className={`${styles["pagination"]} secondary`}>{buttons}</ul>;
+  return <ul className={styles["pagination"]}>{buttons}</ul>;
 }
 
 export default Pagination;
