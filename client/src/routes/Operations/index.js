@@ -12,6 +12,7 @@ import userService from "services/user.service";
 import styles from "./index.module.css";
 
 function Operations() {
+  const [refresh, setRefresh] = useState(false);
   const [operations, setOperations] = useState({});
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
@@ -46,8 +47,12 @@ function Operations() {
       }
     };
 
+    if (refresh) {
+      fetchData();
+      setRefresh(false);
+    }
     if (auth.isSignedIn) fetchData();
-  }, [auth, filters, page]);
+  }, [auth, filters, refresh, page]);
 
   // get categories
   useEffect(() => {
@@ -62,12 +67,16 @@ function Operations() {
       }
     };
 
+    if (refresh) {
+      fetchData();
+      setRefresh(false);
+    }
     if (auth.isSignedIn && categories.length === 0) fetchData();
-  }, [auth, categories]);
+  }, [auth, categories, refresh]);
 
   return (
     <div className={styles["container"]}>
-      <Form />
+      <Form categories={categories} setRefresh={setRefresh} />
       <div className={styles["filters"]}>
         <div className={styles["filter-wrapper"]}>
           <FilterBy

@@ -10,8 +10,8 @@ import userService from "services/user.service";
 // Styles
 import styles from "./Form.module.css";
 
-function Form(props) {
-  const { handleSubmit, control, setValue } = useForm({
+function Form({ categories, setRefresh }) {
+  const { handleSubmit, control, reset, setValue } = useForm({
     defaultValues: {
       amount: "",
       type: "",
@@ -24,7 +24,6 @@ function Form(props) {
     { label: "Outcome", value: "outcome" },
   ];
   const [date, setDate] = useState("");
-  const [categories, setCategories] = useState([]);
 
   const onSubmit = async (data) => {
     const response = await userService.registerOperation(
@@ -38,27 +37,15 @@ function Form(props) {
     // if response is successful, redirect to home
     if (response.status === 201) {
       toast.success(response.data.message);
+      // reset();
+      // setDate("");
+      setRefresh(true);
+
       return;
     }
 
     toast.error(response.response.data.message);
   };
-
-  // get categories
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await userService.getCategories();
-
-      if (response.status === 200) {
-        setCategories(response.data);
-        return;
-      }
-
-      setCategories(null);
-      toast.error(response.response.data.message);
-    };
-    if (categories && categories.length === 0) fetchCategories();
-  }, [categories]);
 
   return (
     <div className={styles["container"]}>
@@ -69,7 +56,7 @@ function Form(props) {
             control={control}
             name="amount"
             placeholder="$250.00"
-            label="Amount"
+            label="Amount *"
             rules={{ required: true }}
           />
         </div>
@@ -77,7 +64,7 @@ function Form(props) {
           <Date
             name="date"
             placeholder="10-27-2022"
-            label="Date"
+            label="Date *"
             value={date}
             required
             onChange={(e) => setDate(e.target.value)}
@@ -85,7 +72,7 @@ function Form(props) {
         </div>
         <div className={styles["input-cont"]}>
           <Select
-            label="Type"
+            label="Type *"
             options={types}
             name="type"
             placeholder="Select a type"
@@ -97,7 +84,7 @@ function Form(props) {
         <div className={styles["input-cont"]}>
           <Select
             label="Category"
-            options={categories}
+            options={categories.filter((c, i) => i !== 0)}
             name="category"
             placeholder="Select a category or create one"
             control={control}
@@ -109,7 +96,7 @@ function Form(props) {
             control={control}
             name="concept"
             placeholder="Custom concept..."
-            label="Concept"
+            label="Concept *"
             rules={{ required: true }}
           />
         </div>
