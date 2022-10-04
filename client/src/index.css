@@ -14,7 +14,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 0.9rem;
+  width: 0.8rem;
+  background-color: rgba(var(--bg), 1);
 }
 
 ::-webkit-corner {
@@ -23,7 +24,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
-  background-color: var(--bg);
+  background-color: rgba(var(--text), 1);
 }
 
 ::-webkit-scrollbar-track {

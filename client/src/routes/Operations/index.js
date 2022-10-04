@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 // Components
 import Operation from "components/Operation";
-import Select from "components/Select";
+import FilterBy from "components/FilterBy";
 // Sections
 import Form from "./Form";
 // Services
@@ -12,49 +11,99 @@ import userService from "services/user.service";
 import styles from "./index.module.css";
 
 function Operations() {
-  const { handleSubmit, control, setValue } = useForm({
-    defaultValues: {
-      "sort-by": "",
-    },
-  });
   const [operations, setOperations] = useState([]);
-  const [options, setOptions] = useState([
+  const [filters, setFilters] = useState({
+    category: "",
+    type: "",
+    sort: "desc",
+  });
+  const sortBy = [
+    { label: "Last", value: "desc" },
+    { label: "First", value: "asc" },
+  ];
+  const types = [
+    { label: "Filter by type", value: "" },
     { label: "Income", value: "income" },
     { label: "Outcome", value: "outcome" },
+  ];
+  const [categories, setCategories] = useState([
+    { label: "Filter by category", value: "" },
   ]);
   const auth = useSelector((state) => state.auth);
 
-  const onSubmit = (data) => console.log(data);
-
+  // get operations
   useEffect(() => {
     const fetchData = async () => {
-      const operations = await userService.getOperations();
+      const response = await userService.getOperations({
+        category: filters.category,
+        type: filters.type,
+        sort: filters.sort,
+      });
 
-      if (operations.status === 200) {
-        setOperations(operations.data);
+      if (response.status === 200) {
+        setOperations(response.data);
       }
     };
 
     if (auth.isSignedIn) fetchData();
-  }, [auth]);
+  }, [auth, filters]);
+
+  // get categories
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await userService.getCategories();
+
+      if (response.status === 200) {
+        setCategories((prev) => [...prev, ...response.data]);
+      }
+    };
+
+    if (auth.isSignedIn && categories.length === 0) fetchData();
+  }, [auth, categories]);
 
   return (
     <div className={styles["container"]}>
       <Form />
       <div className={styles["filters"]}>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
-          <span className={styles["sort-by"]}>
-            Sort by:{" "}
-            <Select
-              options={options}
-              name="sort-by"
-              placeholder="Select a type"
-              control={control}
-              setValue={setValue}
-              rules={{ required: true }}
-            />
-          </span>
-        </form>
+        <div className={styles["filter-wrapper"]}>
+          <FilterBy
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
+            options={sortBy}
+            label="Sort by:"
+            name="sort"
+          />
+        </div>
+        <div className={styles["filter-wrapper"]}>
+          <FilterBy
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
+            options={types}
+            label="Type:"
+            name="type"
+          />
+        </div>
+        <div className={styles["filter-wrapper"]}>
+          <FilterBy
+            onChange={(e) =>
+              setFilters((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
+            }
+            options={categories}
+            label="Category:"
+            name="category"
+          />
+        </div>
       </div>
       <div className={styles["operations-cont"]}>
         {operations.length > 0 &&

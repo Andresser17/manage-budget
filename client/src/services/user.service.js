@@ -1,12 +1,12 @@
 import api from "./api";
 
-async function getOperations(
+async function getOperations({
   page = 1,
   limit = 10,
   type = "",
   category = "",
-  sort = ""
-) {
+  sort = "",
+}) {
   try {
     const response = await api.get(
       `/operations?page=${page}&limit=${limit}&type=${type}&category=${category}&sort=${sort}`
