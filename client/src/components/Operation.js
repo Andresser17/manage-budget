@@ -17,7 +17,7 @@ function Operation({ data }) {
       <div className={styles["bottom"]}>
         <span className={styles["type"]}>{data.type.toUpperCase()}</span>
         <span className={styles["category"]}>
-          <strong>Category:</strong> {data?.category ?? "None"}
+          <strong>Category:</strong> {data.Category?.name ?? "None"}
         </span>
       </div>
     </div>
