@@ -7,6 +7,7 @@ const operationsRouter = async (req, res) => {
 
   try {
     // get user operations from db
+    const count = await Operation.count();
     const data = await Operation.findAll({
       where: {
         UserId: userId,
@@ -18,7 +19,7 @@ const operationsRouter = async (req, res) => {
       order: [["id", query.sort ? query.sort.toUpperCase() : "ASC"]],
     });
 
-    res.status(200).json(data);
+    res.status(200).json({ count, data });
   } catch (err) {
     console.log(err);
 
