@@ -4,7 +4,12 @@ const { Category } = require("../db");
 const operationsRouter = async (req, res) => {
   try {
     // get user operations from db
-    const data = await Category.findAll();
+    const data = await Category.findAll({
+      attributes: [
+        ["id", "value"],
+        ["name", "label"],
+      ],
+    });
 
     res.status(200).json(data);
   } catch (err) {
