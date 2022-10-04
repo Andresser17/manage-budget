@@ -30,7 +30,7 @@ function Home() {
     <div className={styles["container"]}>
       <div className={styles["card"]}>
         <span className={styles["welcome-message"]}>
-          Hello {"User!" || "Visitor!"}
+          Hello {auth.isSignedIn ? "User!" : "Visitor!"}
         </span>
         <span className={styles["subtitle"]}>This is your actual balance</span>
 

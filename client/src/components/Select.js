@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
 // Styles

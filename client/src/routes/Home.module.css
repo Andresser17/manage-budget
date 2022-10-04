@@ -1,5 +1,8 @@
 .container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card {
@@ -7,6 +10,7 @@
   max-width: 24rem;
   height: 12rem;
   padding: 1rem 2rem;
+  margin-bottom: 3rem;
   border-bottom: 0.2rem solid rgba(var(--border, 1));
   box-shadow: var(--shadow-lg);
 }
@@ -34,5 +38,17 @@
 }
 
 .operations-cont {
-  margin-top: 3rem;
+  width: 100%;
+  max-width: 56rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .operations-cont {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

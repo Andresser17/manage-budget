@@ -7,10 +7,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-.container:last-child {
-  margin-bottom: 0;
-}
-
 .topbar {
   display: flex;
   justify-content: space-between;

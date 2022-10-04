@@ -25,6 +25,7 @@
 }
 
 .input {
+  width: 100%;
   background-color: transparent;
   color: rgba(var(--text, 1));
   border: none;
@@ -79,27 +80,4 @@
   cursor: pointer;
   text-align: start;
   display: block;
-}
-
-.option:hover {
-}
-
-.option:focus {
-}
-
-/* className={`al-p-4 al-cursor-pointer al-text-left al-block hover:al-bg-hover focus:al-bg-focus ${ */
-/* option.value === selected.value ? "al-bg-active" : "" */
-/* }`} */
-
-@media only screen and (min-width: 768px) {
-  .select {
-    margin: 0;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .select {
-    width: 10rem;
-    margin: 0;
-  }
 }

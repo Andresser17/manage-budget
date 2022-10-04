@@ -46,13 +46,15 @@ function App() {
 
   return (
     <div className="App">
-      <Topbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/operations" element={<Operations />} />
-      </Routes>
+      <div className="wrapper">
+        <Topbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/operations" element={<Operations />} />
+        </Routes>
+      </div>
       <ToastContainer
         toastClassName={({ type }) =>
           contextClass[type || "default"] + " toast-container"

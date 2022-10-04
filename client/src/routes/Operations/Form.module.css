@@ -1,4 +1,6 @@
 .container {
+  width: 100%;
+  max-width: 32rem;
   padding: 2rem;
   border-bottom: 0.2rem solid rgba(var(--border), 1);
   box-shadow: var(--shadow-lg);

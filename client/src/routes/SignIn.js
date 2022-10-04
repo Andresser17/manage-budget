@@ -36,38 +36,40 @@ function SignIn() {
 
   return (
     <div className={styles["container"]}>
-      <h2 className={styles["title"]}>Sign In</h2>
+      <div className={styles["form-cont"]}>
+        <h2 className={styles["title"]}>Sign In</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
-        <div className={styles["input-cont"]}>
-          <Input
-            control={control}
-            name="email"
-            placeholder="example@domain.com"
-            label="Email"
-            rules={{
-              required: true,
-              pattern: {
-                value: validate.email,
-                message: "Provide a valid email",
-              },
-            }}
-          />
-        </div>
-        <div className={styles["input-cont"]}>
-          <Input
-            control={control}
-            name="password"
-            placeholder="Password"
-            label="Password"
-            type="password"
-            rules={{ required: true }}
-          />
-        </div>
-        <button className={`${styles["submit-button"]} secondary`}>
-          Sign In
-        </button>
-      </form>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
+          <div className={styles["input-cont"]}>
+            <Input
+              control={control}
+              name="email"
+              placeholder="example@domain.com"
+              label="Email"
+              rules={{
+                required: true,
+                pattern: {
+                  value: validate.email,
+                  message: "Provide a valid email",
+                },
+              }}
+            />
+          </div>
+          <div className={styles["input-cont"]}>
+            <Input
+              control={control}
+              name="password"
+              placeholder="Password"
+              label="Password"
+              type="password"
+              rules={{ required: true }}
+            />
+          </div>
+          <button className={`${styles["submit-button"]} secondary`}>
+            Sign In
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

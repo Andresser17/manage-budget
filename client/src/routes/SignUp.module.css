@@ -1,4 +1,12 @@
 .container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.form-cont {
+  width: 100%;
+  max-width: 24rem;
   padding: 2rem;
   border-bottom: 0.2rem solid rgba(var(--border), 1);
   box-shadow: var(--shadow-lg);

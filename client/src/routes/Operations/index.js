@@ -28,9 +28,7 @@ function Operations() {
     { label: "Income", value: "income" },
     { label: "Outcome", value: "outcome" },
   ];
-  const [categories, setCategories] = useState([
-    { label: "Filter by category", value: "" },
-  ]);
+  const [categories, setCategories] = useState([]);
   const auth = useSelector((state) => state.auth);
 
   // get operations
@@ -57,7 +55,10 @@ function Operations() {
       const response = await userService.getCategories();
 
       if (response.status === 200) {
-        setCategories((prev) => [...prev, ...response.data]);
+        setCategories([
+          { label: "Filter by category", value: "" },
+          ...response.data,
+        ]);
       }
     };
 
