@@ -7,7 +7,7 @@ const operationsRouter = async (req, res) => {
 
   try {
     // get user operations from db
-    const count = await Operation.count();
+    const count = await Operation.count({ where: { UserId: userId } });
     const data = await Operation.findAll({
       where: {
         UserId: userId,
@@ -15,7 +15,7 @@ const operationsRouter = async (req, res) => {
         ...(query.category && { CategoryId: query.category }),
       },
       ...(query.limit && { limit: query.limit }),
-      ...(query.page && { offset: query.page * query.limit - query.limit }),
+      ...(query.page && { offset: query.page * query.limit }),
       order: [["id", query.sort ? query.sort.toUpperCase() : "ASC"]],
       include: ["Category"],
     });
