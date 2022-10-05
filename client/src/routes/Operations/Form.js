@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 // Components
 import Input from "components/Input";
 import Date from "components/Date";
 import Select from "components/Select";
+// Icons
+import { ReactComponent as CloseIcon } from "icons/error-icon.svg";
 // Services
 import userService from "services/user.service";
+// Actions
+import { refresh } from "store/userSlice";
 // Styles
 import styles from "./Form.module.css";
 
-function Form({ update, setUpdate, categories, setRefresh }) {
+function Form({ update, setUpdate, categories }) {
   const { handleSubmit, control, reset, setValue } = useForm({
     defaultValues: {
       amount: "",
@@ -24,6 +29,13 @@ function Form({ update, setUpdate, categories, setRefresh }) {
     { label: "Outcome", value: "outcome" },
   ];
   const [date, setDate] = useState("");
+  const dispatch = useDispatch();
+
+  const resetForm = () => {
+    reset();
+    setDate("");
+    setUpdate(null);
+  };
 
   const updateOp = async (data) => {
     const response = await userService.updateOperation(
@@ -37,10 +49,8 @@ function Form({ update, setUpdate, categories, setRefresh }) {
 
     if (response.status === 200) {
       toast.success(response.data.message);
-      reset();
-      setDate("");
-      setRefresh(true);
-      setUpdate(null);
+      resetForm();
+      dispatch(refresh(true));
 
       return;
     }
@@ -59,9 +69,8 @@ function Form({ update, setUpdate, categories, setRefresh }) {
 
     if (response.status === 201) {
       toast.success(response.data.message);
-      reset();
-      setDate("");
-      setRefresh(true);
+      resetForm();
+      dispatch(refresh(true));
 
       return;
     }
@@ -93,7 +102,12 @@ function Form({ update, setUpdate, categories, setRefresh }) {
 
   return (
     <div className={styles["container"]}>
-      <h2 className={styles["title"]}>Register Operation</h2>
+      <div className={styles["top"]}>
+        <h2 className={styles["title"]}>Register Operation</h2>
+        {update && (
+          <CloseIcon onClick={resetForm} className={styles["close-button"]} />
+        )}
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
         <div className={styles["input-cont"]}>
           <Input
@@ -101,6 +115,7 @@ function Form({ update, setUpdate, categories, setRefresh }) {
             name="amount"
             placeholder="$250.00"
             label="Amount *"
+            type="number"
             rules={{ required: true }}
           />
         </div>

@@ -15,7 +15,7 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const user = await userService.getUserData();
-      const operations = await userService.getOperations({});
+      const operations = await userService.getOperations({ sort: "desc" });
 
       if (user.status === 200 && operations.status === 200) {
         setUser(user.data);

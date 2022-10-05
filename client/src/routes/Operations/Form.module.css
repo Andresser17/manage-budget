@@ -6,10 +6,26 @@
   box-shadow: var(--shadow-lg);
 }
 
+.top {
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .title {
   font-size: 2rem;
   text-align: start;
-  margin-bottom: 3rem;
+}
+
+.close-button {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .input-cont {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 // Components
 import Operation from "components/Operation";
 import FilterBy from "components/FilterBy";
@@ -8,11 +8,12 @@ import Pagination from "components/Pagination";
 import Form from "./Form";
 // Services
 import userService from "services/user.service";
+// Actions
+import { refresh } from "store/userSlice";
 // Styles
 import styles from "./index.module.css";
 
 function Operations() {
-  const [refresh, setRefresh] = useState(false);
   const [operations, setOperations] = useState({});
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
@@ -31,7 +32,9 @@ function Operations() {
   ];
   const [categories, setCategories] = useState([]);
   const [update, setUpdate] = useState(null);
+  const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.user);
 
   // get operations
   useEffect(() => {
@@ -48,12 +51,12 @@ function Operations() {
       }
     };
 
-    if (refresh) {
+    if (user.refresh) {
       fetchData();
-      setRefresh(false);
+      dispatch(refresh(false));
     }
     if (auth.isSignedIn) fetchData();
-  }, [auth, filters, refresh, page]);
+  }, [auth, filters, dispatch, user, page]);
 
   // get categories
   useEffect(() => {
@@ -68,21 +71,15 @@ function Operations() {
       }
     };
 
-    if (refresh) {
+    if (user.refresh) {
       fetchData();
-      setRefresh(false);
     }
     if (auth.isSignedIn && categories.length === 0) fetchData();
-  }, [auth, categories, refresh]);
+  }, [auth, categories, user]);
 
   return (
     <div className={styles["container"]}>
-      <Form
-        update={update}
-        setUpdate={setUpdate}
-        categories={categories}
-        setRefresh={setRefresh}
-      />
+      <Form update={update} setUpdate={setUpdate} categories={categories} />
       <div className={styles["filters"]}>
         <div className={styles["filter-wrapper"]}>
           <FilterBy
@@ -127,7 +124,7 @@ function Operations() {
       <div className={styles["operations-cont"]}>
         {Object.keys(operations).length > 0 &&
           operations.data.map((op) => (
-            <Operation modify key={op.id} data={op} />
+            <Operation setUpdate={setUpdate} modify key={op.id} data={op} />
           ))}
       </div>
       <div className={styles["pag-cont"]}>

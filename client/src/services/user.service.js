@@ -53,6 +53,17 @@ async function updateOperation(id, amount, date, type, category, concept) {
   }
 }
 
+async function deleteOperation(id) {
+  try {
+    const response = await api.delete(`/operations/${id}`);
+
+    return response;
+  } catch (e) {
+    console.log(e.message);
+    return e;
+  }
+}
+
 async function getUserData() {
   try {
     const response = await api.get("/userdata");
@@ -79,6 +90,7 @@ const user = {
   getOperations,
   registerOperation,
   updateOperation,
+  deleteOperation,
   getUserData,
   getCategories,
 };
