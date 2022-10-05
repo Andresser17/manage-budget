@@ -1,38 +1,45 @@
-.pagination {
+.container {
   width: fit-content;
   list-style: none;
   display: flex;
 }
 
+.button-li {
+  margin: 0 0.2rem;
+}
+
 .button {
-  margin: 0 0.3rem;
-  box-shadow: var(--shadow-lg);
+  padding: 0.3rem 0.6rem;
   font-size: 1.2rem;
-  padding: 0.3rem 0.8rem;
+  font-weight: 600;
   cursor: pointer;
   display: block;
 }
 
 .button:hover {
-  opacity: 0.8;
+  outline: 0.08rem solid rgba(var(--border), 0.5);
 }
 
-.selected-button {
-  border: 0.08rem solid rgba(var(--border), 1);
+.button-active {
+  outline: 0.08rem solid rgba(var(--border), 0.5);
+  box-shadow: var(--shadow-lg);
+}
+
+.arrow-button-li {
+  margin: 0 0.8rem;
 }
 
 .arrow-button {
-  background-color: var(--bg);
-  box-shadow: var(--shadow-lg);
-  padding: 0 0.8rem;
-  margin: 0 0.3rem;
+  padding: 0.3rem 0.6rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .arrow-button:hover {
-  opacity: 0.8;
+  outline: 0.08rem solid rgba(var(--border), 0.5);
 }
 
 .arrow {
@@ -42,10 +49,6 @@
 @media only screen and (min-width: 1024px) {
   .button {
     font-size: 1.1rem;
-  }
-
-  .arrow-button {
-    padding: 0.3rem 1.2rem;
   }
 
   .arrow {

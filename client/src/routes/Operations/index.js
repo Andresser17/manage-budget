@@ -20,7 +20,14 @@ function Operations() {
     category: "",
     type: "",
     sort: "desc",
+    limit: "10",
   });
+  const limit = [
+    { label: "5", value: "5" },
+    { label: "10", value: "10" },
+    { label: "25", value: "25" },
+    { label: "50", value: "50" },
+  ];
   const sortBy = [
     { label: "Last", value: "desc" },
     { label: "First", value: "asc" },
@@ -44,6 +51,7 @@ function Operations() {
         category: filters.category,
         type: filters.type,
         sort: filters.sort,
+        limit: filters.limit,
       });
 
       if (response.status === 200) {
@@ -130,8 +138,8 @@ function Operations() {
       <div className={styles["pag-cont"]}>
         {Object.keys(operations).length > 0 && (
           <Pagination
-            maxPage={operations.count}
-            limit={10}
+            pageCount={operations.count}
+            limit={filters.limit}
             selected={page}
             setSelected={setPage}
           />
