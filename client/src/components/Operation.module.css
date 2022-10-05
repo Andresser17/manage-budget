@@ -46,3 +46,33 @@
 .category {
   font-size: 0.9rem;
 }
+
+.options {
+  background-color: rgba(var(--bg, 1));
+  padding: 0.5rem 0;
+  box-shadow: var(--shadow-md);
+  margin-top: 1rem;
+  display: flex;
+}
+
+.close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.edit-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}

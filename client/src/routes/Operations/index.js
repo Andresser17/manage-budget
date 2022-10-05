@@ -126,7 +126,9 @@ function Operations() {
       </div>
       <div className={styles["operations-cont"]}>
         {Object.keys(operations).length > 0 &&
-          operations.data.map((op) => <Operation key={op.id} data={op} />)}
+          operations.data.map((op) => (
+            <Operation modify key={op.id} data={op} />
+          ))}
       </div>
       <div className={styles["pag-cont"]}>
         {Object.keys(operations).length > 0 && (
