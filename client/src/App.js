@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 // Sections
 import Topbar from "sections/Topbar";
+import Footer from "sections/Footer";
 // Routes
 import SignIn from "routes/SignIn";
 import SignUp from "routes/SignUp";
@@ -54,6 +55,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/operations" element={<Operations />} />
         </Routes>
+        <Footer />
       </div>
       <ToastContainer
         toastClassName={({ type }) =>

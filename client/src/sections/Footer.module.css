@@ -1,0 +1,14 @@
+.footer {
+  width: 100%;
+  height: 2rem;
+  border-top: 0.08rem solid rgba(var(--border), 1);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  color: rgba(var(--text), 1);
+  text-decoration: none;
+}
