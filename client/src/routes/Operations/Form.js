@@ -10,7 +10,7 @@ import userService from "services/user.service";
 // Styles
 import styles from "./Form.module.css";
 
-function Form({ categories, setRefresh }) {
+function Form({ update, setUpdate, categories, setRefresh }) {
   const { handleSubmit, control, reset, setValue } = useForm({
     defaultValues: {
       amount: "",
@@ -25,7 +25,30 @@ function Form({ categories, setRefresh }) {
   ];
   const [date, setDate] = useState("");
 
-  const onSubmit = async (data) => {
+  const updateOp = async (data) => {
+    const response = await userService.updateOperation(
+      update.id,
+      data.amount,
+      date,
+      data.type.toLowerCase(),
+      data.category,
+      data.concept
+    );
+
+    if (response.status === 200) {
+      toast.success(response.data.message);
+      reset();
+      setDate("");
+      setRefresh(true);
+      setUpdate(null);
+
+      return;
+    }
+
+    toast.error(response.response.data.message);
+  };
+
+  const registerOp = async (data) => {
     const response = await userService.registerOperation(
       data.amount,
       date,
@@ -34,11 +57,10 @@ function Form({ categories, setRefresh }) {
       data.concept
     );
 
-    // if response is successful, redirect to home
     if (response.status === 201) {
       toast.success(response.data.message);
-      // reset();
-      // setDate("");
+      reset();
+      setDate("");
       setRefresh(true);
 
       return;
@@ -46,6 +68,28 @@ function Form({ categories, setRefresh }) {
 
     toast.error(response.response.data.message);
   };
+
+  const onSubmit = async (data) => {
+    if (update) {
+      updateOp(data);
+      return;
+    }
+
+    registerOp(data);
+  };
+
+  // if data is provided fill form
+  useEffect(() => {
+    const fillForm = () => {
+      setValue("amount", update.amount);
+      setValue("type", update.type);
+      setValue("category", update.category);
+      setValue("concept", update.concept);
+      setDate(update.date);
+    };
+
+    if (update && date.length === 0) fillForm();
+  }, [update, date, setValue]);
 
   return (
     <div className={styles["container"]}>
@@ -75,6 +119,7 @@ function Form({ categories, setRefresh }) {
             label="Type *"
             options={types}
             name="type"
+            disabled={update ? true : false}
             placeholder="Select a type"
             control={control}
             setValue={setValue}
@@ -101,7 +146,7 @@ function Form({ categories, setRefresh }) {
           />
         </div>
         <button className={`${styles["submit-button"]} secondary`}>
-          Submit
+          {update ? "Update" : "Register"}
         </button>
       </form>
     </div>

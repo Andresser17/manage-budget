@@ -50,6 +50,7 @@ function Select({
   options = [],
   label = "",
   placeholder = "Search",
+  disabled,
   getValue = (value) => undefined,
   setValue = (name, value) => undefined,
   ...props
@@ -83,8 +84,10 @@ function Select({
           {label}
         </label>
         <div
+          aria-disabled={disabled}
           ref={containerRef}
           onClick={() => {
+            if (disabled) return;
             if (!isFocus) setIsFocus(true);
             inputRef.current.focus();
             setShowDropdown((prev) => !prev);
@@ -111,6 +114,7 @@ function Select({
                 field.onChange(e);
               },
               value: field.value || "",
+              disabled,
             }}
           />
         </div>

@@ -30,6 +30,7 @@ function Operations() {
     { label: "Outcome", value: "outcome" },
   ];
   const [categories, setCategories] = useState([]);
+  const [update, setUpdate] = useState(null);
   const auth = useSelector((state) => state.auth);
 
   // get operations
@@ -76,7 +77,12 @@ function Operations() {
 
   return (
     <div className={styles["container"]}>
-      <Form categories={categories} setRefresh={setRefresh} />
+      <Form
+        update={update}
+        setUpdate={setUpdate}
+        categories={categories}
+        setRefresh={setRefresh}
+      />
       <div className={styles["filters"]}>
         <div className={styles["filter-wrapper"]}>
           <FilterBy

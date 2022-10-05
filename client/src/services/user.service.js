@@ -36,6 +36,23 @@ async function registerOperation(amount, date, type, category, concept) {
   }
 }
 
+async function updateOperation(id, amount, date, type, category, concept) {
+  try {
+    const response = await api.put(`/operations/${id}`, {
+      amount,
+      date,
+      type,
+      category,
+      concept,
+    });
+
+    return response;
+  } catch (e) {
+    console.log(e.message);
+    return e;
+  }
+}
+
 async function getUserData() {
   try {
     const response = await api.get("/userdata");
@@ -61,6 +78,7 @@ async function getCategories() {
 const user = {
   getOperations,
   registerOperation,
+  updateOperation,
   getUserData,
   getCategories,
 };
