@@ -1,3 +1,7 @@
+.container {
+  margin-top: 3rem;
+}
+
 .filters {
   width: 100%;
   max-width: 56rem;

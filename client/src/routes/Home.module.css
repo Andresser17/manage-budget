@@ -1,5 +1,7 @@
 .container {
   width: 100%;
+  min-height: calc(100vh - 7rem);
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +12,7 @@
   max-width: 24rem;
   height: 12rem;
   padding: 1rem 2rem;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
   border-bottom: 0.2rem solid rgba(var(--border, 1));
   box-shadow: var(--shadow-lg);
 }
