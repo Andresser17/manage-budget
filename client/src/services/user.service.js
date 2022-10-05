@@ -1,7 +1,7 @@
 import api from "./api";
 
 async function getOperations({
-  page = 1,
+  page = 0,
   limit = 10,
   type = "",
   category = "",

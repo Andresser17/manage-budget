@@ -15,7 +15,7 @@ import styles from "./index.module.css";
 
 function Operations() {
   const [operations, setOperations] = useState({});
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [filters, setFilters] = useState({
     category: "",
     type: "",
@@ -23,9 +23,8 @@ function Operations() {
     limit: "10",
   });
   const limit = [
-    { label: "5", value: "5" },
     { label: "10", value: "10" },
-    { label: "25", value: "25" },
+    { label: "20", value: "20" },
     { label: "50", value: "50" },
   ];
   const sortBy = [
@@ -100,6 +99,20 @@ function Operations() {
             options={sortBy}
             label="Sort by:"
             name="sort"
+          />
+        </div>
+        <div className={styles["filter-wrapper"]}>
+          <FilterBy
+            onChange={(e) => {
+              setPage(0);
+              setFilters((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }));
+            }}
+            options={limit}
+            label="Per page:"
+            name="limit"
           />
         </div>
         <div className={styles["filter-wrapper"]}>
